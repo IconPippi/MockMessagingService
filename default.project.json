@@ -1,0 +1,12 @@
+{
+  "name": "MockMessagingService",
+  "tree": {
+		"$className": "Folder",
+		"Plugin": {
+			"$path": "plugin"
+		},
+		"MessagingService": {
+			"$path": "lib"
+		}
+	}
+}

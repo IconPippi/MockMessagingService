@@ -1,6 +1,6 @@
--- Check whether the MMS API has been enabled by the plugin
+-- Check if we are in a prod environment or if the plugin has enabled the mock API
 
-if script:FindFirstChild("MockMessagingService") == nil then
+if game.JobId ~= "" or script:FindFirstChild("MockMessagingService") == nil then
 	return game:GetService("MessagingService")
 else
 	warn("INFO: Using MockMessagingService instead of MessagingService")

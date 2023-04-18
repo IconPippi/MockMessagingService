@@ -29,12 +29,17 @@ if game.ServerScriptService:FindFirstChild("MessagingService") == nil then
 end
 
 local function toggleButtonClicked()
-	enabled = not enabled
+    enabled = not enabled
 
     if enabled then _clone() else _remove() end
 end
 
 toggleButton.Click:Connect(toggleButtonClicked)
+
+plugin.Unloading:Connect(function()
+    enabled = false
+    _remove()
+end)
 
 -- ################## Data exchange logic ##################
 local MMS = game.ServerScriptService:WaitForChild("MessagingService"):WaitForChild("MockMessagingService")

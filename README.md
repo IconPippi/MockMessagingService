@@ -38,10 +38,11 @@ Received data: Hello world!
 ```
 
 ## How it works
-MockMessagingService takes advantage of the plugin `settings.json file`. The service writes incoming topic messages in specific setting fiels, and at the same time it listens for any changes to the fields of subscribed topics so it can relay them to the game. Communication between the plugin and game scripts is achieved through `BindableEvents`.
+MockMessagingService takes advantage of the plugin `settings.json` file. The service writes incoming topic messages in specific setting fiels, and at the same time it listens for any changes to the fields of subscribed topics so it can relay them to the game. Due to this file being shared across all active Roblox Studio instances, data is able to travel across the sandbox boundaries. 
+Communication between the plugin and game scripts is achieved through `BindableEvents`.
 
 ## Building and contributing
 This project uses Rojo to manage its structure and perform builds.
-Use this bash command to quickly deploy the plugin in your Roblox Studio environment:
 
+Use this bash command to quickly deploy the plugin in your Roblox Studio environment:
 `rojo build -o $LOCALAPPDATA/Roblox/Plugins/MockMessagingService.rbxm`

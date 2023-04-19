@@ -1,16 +1,5 @@
 local MockMessagingService = {}
 
---[[ TODO constraints:
-
-        [Limit]	                                [Maximum]
-    Size of message	                        1kB
-    Messages sent per game server	        150 + 60 * (number of players in this game server) per minute
-    Messages received per topic	            (10 + 20 * number of servers) per minute
-    Messages received for entire game	    (100 + 50 * number of servers) per minute
-    Subscriptions allowed per game server	5 + 2 * (number of players in this game server)
-
---]]
-
 local function _getOrNew(name)
     local rq = script:FindFirstChild(name, false)
 

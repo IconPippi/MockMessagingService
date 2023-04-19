@@ -62,9 +62,12 @@ game:GetService("RunService").Heartbeat:Connect(function()
     for i, topic in ipairs(subscribedTopics) do
         local data = plugin:GetSetting(topic)
         if data then
+            -- we want to clear the setting field even if there's
+            -- no one subscribed to this topic ready to accept the data
+            plugin:SetSetting(topic, nil)
+
             local callback: BindableEvent = MMS:WaitForChild(topic .. "_CallbackEvent")
             callback:Fire(data)
-            plugin:SetSetting(topic, nil)
         end
     end
 end)

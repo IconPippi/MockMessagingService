@@ -1,5 +1,5 @@
 # MockMessagingService
-This Roblox Studio plugin provides a local alternative to the MessagingService Roblox API.
+This Roblox Studio plugin provides a localhost alternative to the MessagingService Roblox API.
 It is currently impossible to communicate across locally-running Roblox servers on your machine through the provided MS API, unless you were to create a secondary place under the same universe of your main one. This, however did not cover my specific use case and I therefore decided to engineer a hacky alternative.
 
 ## Installation

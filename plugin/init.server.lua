@@ -21,11 +21,14 @@ local toggleButton = toolbar:CreateButton("Toggle MMS", "Enables or disables Moc
 toggleButton.ClickableWhenViewportHidden = true
 
 -- if it's a brand new project that has never been exposed to MMS before
--- we only want to copy the "require" script, but not the actual library
+-- we only want to copy the "require" script, but not the actual library.
+-- otherwise we check if MMS is already enabled and set the plugin state accordingly
 if game.ServerScriptService:FindFirstChild("MessagingService") == nil then
     local clone = script.Parent.MessagingService:Clone()
     clone.Parent = game.ServerScriptService
     game.ServerScriptService.MessagingService.MockMessagingService:Destroy()
+elseif game.ServerScriptService.MessagingService:FindFirstChild("MockMessagingService") ~= nil then 
+    enabled = true 
 end
 
 local function toggleButtonClicked()

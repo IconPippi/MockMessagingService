@@ -88,10 +88,16 @@ local Constraints = {
         max = (100 + 50 * _serverCount()) / 60,
         count = 0,
         lastTime = os.time()
-    }
+    },
+    maxTopicLength = 80
 }
 
 publishRequest.Event:Connect(function (topic: string, message)
+    -- check if topic length exceeds 80 chars
+    if string.len(topic) > Constraints.maxTopicLength then
+        error("Topic length exceeds 80 characters")
+    end
+
     -- check if message size exceeds 1kB
     if string.len(tostring(message)) > 1024 then
         error("Message size exceeds 1kB")
@@ -111,6 +117,11 @@ publishRequest.Event:Connect(function (topic: string, message)
 end)
 
 subscribeRequest.Event:Connect(function (topic: string)
+    -- check if topic length exceeds 80 chars
+    if string.len(topic) > Constraints.maxTopicLength then
+        error("Topic length exceeds 80 characters")
+    end
+
     -- check if already subscribed to topic
     if subscribedTopics[topic] ~= nil then return end
 
@@ -151,7 +162,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
--- Unloading
+-- ################## Unloading ##################
 plugin.Unloading:Connect(function()
     plugin:SetSetting("_serverCount", _serverCount() - 1)
 

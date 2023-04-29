@@ -40,6 +40,7 @@ end
 toggleButton.Click:Connect(toggleButtonClicked)
 
 -- ################## Data exchange logic ##################
+local Serializer = game:GetService("HttpService")
 local MMS = game.ServerScriptService:WaitForChild("MessagingService"):WaitForChild("MockMessagingService")
 
 local publishRequest: BindableEvent = MMS:WaitForChild("PublishRequest")
@@ -62,6 +63,7 @@ plugin:SetSetting("_serverCount", _serverCount() + 1)
 --[[ Constraints:
 
         [Limit]	                                [Maximum]
+    Topic length                            80 characters
     Size of message	                        1kB
     Messages sent per game server	        150 + 60 * (number of players in this game server) per minute
     Messages received per topic	            (10 + 20 * number of servers) per minute
@@ -96,6 +98,10 @@ publishRequest.Event:Connect(function (topic: string, message)
     -- check if topic length exceeds 80 chars
     if string.len(topic) > Constraints.maxTopicLength then
         error("Topic length exceeds 80 characters")
+    end
+
+    if typeof(message) ~= "string" then
+        message = Serializer:JSONEncode(message)
     end
 
     -- check if message size exceeds 1kB
@@ -151,6 +157,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
         end
 
         local data = plugin:GetSetting(topic)
+        pcall(function() data = Serializer:JSONDecode(data) end)
         if data then
             -- we want to clear the setting field even if there's
             -- no one subscribed to this topic ready to accept the data

@@ -19,7 +19,7 @@ function MockMessagingService:PublishAsync(topic: string, message)
 end
 
 function MockMessagingService:SubscribeAsync(topic: string, callback): RBXScriptConnection
-    local callbackEvent = Instance.new("BindableEvent")
+    local callbackEvent: BindableEvent = Instance.new("BindableEvent")
     callbackEvent.Parent = script
     callbackEvent.Name = topic .. "_CallbackEvent"
 

@@ -1,4 +1,4 @@
-if not plugin then return end
+if not plugin or game.Players.LocalPlayer then return end
 
 -- ################## UI Logic ##################
 local toolbar = plugin:CreateToolbar("MockMessagingService plugin")
